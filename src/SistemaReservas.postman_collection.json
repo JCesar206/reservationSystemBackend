@@ -1,0 +1,103 @@
+{
+  "info": {
+    "name": "Sistema de Reservas",
+    "_postman_id": "12345678-abcd-efgh-ijkl-987654321000",
+    "description": "Colección de endpoints CRUD para Usuarios, Recursos y Reservas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Crear Usuario",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Julio\",\n  \"email\": \"julio@test.com\"\n}"
+            },
+            "url": { "raw": "http://localhost:4000/usuarios", "protocol": "http", "host": ["localhost"], "port": "4000", "path": ["usuarios"] }
+          }
+        },
+        {
+          "name": "Listar Usuarios",
+          "request": { "method": "GET", "url": "http://localhost:4000/usuarios" }
+        },
+        {
+          "name": "Obtener Usuario por ID",
+          "request": { "method": "GET", "url": "http://localhost:4000/usuarios/1" }
+        },
+        {
+          "name": "Actualizar Usuario",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Julio Actualizado\"\n}" },
+            "url": "http://localhost:4000/usuarios/1"
+          }
+        },
+        {
+          "name": "Eliminar Usuario",
+          "request": { "method": "DELETE", "url": "http://localhost:4000/usuarios/1" }
+        }
+      ]
+    },
+    {
+      "name": "Recursos",
+      "item": [
+        {
+          "name": "Crear Recurso",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Sala A\",\n  \"tipo\": \"Sala\"\n}" },
+            "url": "http://localhost:4000/recursos"
+          }
+        },
+        { "name": "Listar Recursos", "request": { "method": "GET", "url": "http://localhost:4000/recursos" } },
+        { "name": "Obtener Recurso por ID", "request": { "method": "GET", "url": "http://localhost:4000/recursos/1" } },
+        {
+          "name": "Actualizar Recurso",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Sala B\"\n}" },
+            "url": "http://localhost:4000/recursos/1"
+          }
+        },
+        { "name": "Eliminar Recurso", "request": { "method": "DELETE", "url": "http://localhost:4000/recursos/1" } }
+      ]
+    },
+    {
+      "name": "Reservas",
+      "item": [
+        {
+          "name": "Crear Reserva",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha\": \"2026-03-06T10:00:00\",\n  \"UsuarioId\": 1,\n  \"RecursoId\": 1\n}"
+            },
+            "url": "http://localhost:4000/reservas"
+          }
+        },
+        { "name": "Listar Reservas", "request": { "method": "GET", "url": "http://localhost:4000/reservas" } },
+        { "name": "Obtener Reserva por ID", "request": { "method": "GET", "url": "http://localhost:4000/reservas/1" } },
+        {
+          "name": "Actualizar Reserva",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"fecha\": \"2026-03-07T15:00:00\"\n}" },
+            "url": "http://localhost:4000/reservas/1"
+          }
+        },
+        { "name": "Eliminar Reserva", "request": { "method": "DELETE", "url": "http://localhost:4000/reservas/1" } }
+      ]
+    }
+  ]
+}
