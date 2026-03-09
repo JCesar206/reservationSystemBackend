@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS Reservas (
 );
 
 INSERT INTO Usuarios (nombre, email) VALUES
-('Julio', 'julio@test.com'),
-('Ana', 'ana@test.com');
+("Julio", "julio@test.com"),
+("Ana", "ana@test.com");
 
 INSERT INTO Recursos (nombre, tipo) VALUES
-('Sala A', 'Sala'),
-('Sala B', 'Sala'),
-('Computadora 1', 'PC');
+("Sala A", "Sala"),
+("Sala B", "Sala"),
+("Computadora 1", "PC");
 
 INSERT INTO Reservas (fecha, UsuarioId, RecursoId) VALUES
-('2026-03-06 10:00:00', 1, 1),
-('2026-03-07 15:00:00', 2, 2);
+("2026-03-06 10:00:00", 1, 1),
+("2026-03-07 15:00:00", 2, 2);
