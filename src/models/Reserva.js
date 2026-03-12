@@ -1,17 +1,31 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db.js");
-const Usuario = require("./Usuario.js");
-const Recurso = require("./Recurso.js");
+const { Model, DataTypes } = require("sequelize");
+const { sequelize } = require(".");
 
-const Reserva = sequelize.define("Reserva", {
-	fecha: { type: DataTypes.DATE, allowNull: false }
-});
+class Reserva extends Model {
+  static associate(models) {
+    Reserva.belongsTo(models.Usuario, {
+      foreignKey: { allowNull: false },
+      onDelete: "CASCADE",
+    });
+    Reserva.belongsTo(models.Recurso, {
+      foreignKey: { allowNull: false },
+      onDelete: "CASCADE",
+    });
+  }
+}
 
-// Relaciones
-Usuario.hasMany(Reserva);
-Reserva.belongsTo(Usuario);
-
-Recurso.hasMany(Reserva);
-Reserva.belongsTo(Recurso);
-
-module.exports = Reserva;
+module.exports = (sequelize) => {
+  Reserva.init(
+    {
+      fecha: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Reserva",
+    }
+  );
+  return Reserva;
+}
