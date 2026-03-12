@@ -1,9 +1,24 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db.js");
+const { Model, DataTypes } = require("sequelize");
+const { sequelize } = require(".");
 
-const Recurso = sequelize.define("Recurso", {
-	nombre: { type: DataTypes.STRING, allowNull: false },
-	tipo: { type: DataTypes.STRING }
-});
+class Recurso extends Model {
+	static associate(models) {
+		Recurso.hasMany(models.Reserva, { onDelete: "CASCADE" });
+	}
+}
 
-module.exports = Recurso;
+module.exports = (sequelize) => {
+	Recurso.init(
+		{
+			nombre: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
+		},
+		{
+			sequelize,
+			modelName: "Recurso",
+		}
+	);
+	return Recurso;
+}
