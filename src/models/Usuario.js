@@ -1,9 +1,29 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db.js");
+const { Model, DataTypes } = require("sequelize");
+const { sequelize } = require(".");
 
-const Usuario = sequelize.define("Usuario", {
-	nombre: { type: DataTypes.STRING, allowNull: false },
-	email: { type: DataTypes.STRING, unique: true, allowNull: false }
-});
+class Usuario extends Model {
+	static associate(models) {
+		Usuario.hasMany(models.Reserva, { onDelete: "CASCADE" });
+	}
+}
 
-module.exports = Usuario;
+module.exports = (sequelize) => {
+	Usuario.init(
+		{
+			nombre: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
+			email: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				unique: true,
+			},
+		},
+		{
+			sequelize,
+			modelName: "Usuario",
+		}
+	);
+	return Usuario;
+};
