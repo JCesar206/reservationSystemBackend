@@ -1,8 +1,6 @@
 const express = require("express");
-const Reserva = require("../models/Reserva");
-const Usuario = require("../models/Usuario");
-const Recurso = require("../models/Recurso");
 const router = express.Router();
+const { Reserva, Usuario, Recurso } = require("../models");
 
 // Crear reserva
 router.post("/", async (req, res) => {
@@ -61,6 +59,35 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.error("❌ Error al eliminar reserva:", error);
     res.status(500).json({ error: "Error al eliminar reserva" });
+  }
+});
+
+// GET /reservas?query=texto
+router.get("/", async (req, res) => {
+  try {
+     const { query } = req.query;
+     let where = {};
+
+     if (query) {
+      // Filtrar por fecha, usuario o recurso
+      where = {
+        [Op.or]: [
+          { fecha: {[Op.like]: `%${query}%`}},
+          { "$Usuario.nombre$": {[Op.like]: `%${query}%`}},
+          { "$Recurso.nombre$": {[Op.like]: `%${query}%`}},
+        ],
+      };
+     }
+
+     const reservas = await Reserva.findAll({
+      where,
+      include: [Usuario, Recurso],
+     });
+
+     res.json(reservas);
+  } catch (err) {
+    console.error("❌ Error al buscar reservas:", err);
+    res.status(500).json({ error: "Error al buscar reservas" });
   }
 });
 
