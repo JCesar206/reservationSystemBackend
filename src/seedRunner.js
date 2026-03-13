@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const sql = fs.readFileSync(__dirname + "/seed/seed.sql", "utf-8");
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
