@@ -1,9 +1,10 @@
 const express = require("express");
-const Recurso = require("../models/Recurso");
+const authMiddleware = require("../middleware/auth.js");
+const Recurso = require("../models/recurso.js");
 const router = express.Router();
 
 // CRUD similar al de usuarios
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const recurso = await Recurso.create(req.body);
     res.status(201).json(recurso);
@@ -13,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
     const recursos = await Recurso.findAll();
     res.json(recursos);
@@ -23,7 +24,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware, async (req, res) => {
   try {
     const recurso = await Recurso.findByPk(req.params.id);
     recurso ? res.json(recurso) : res.status(404).json({ error: "Recurso no encontrado" });
@@ -33,7 +34,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authMiddleware, async (req, res) => {
   try {
     const recurso = await Recurso.findByPk(req.params.id);
     if (!recurso) return res.status(404).json({ error: "Recurso no encontrado" });
@@ -45,7 +46,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     const recurso = await Recurso.findByPk(req.params.id);
     if (!recurso) return res.status(404).json({ error: "Recurso no encontrado" });
